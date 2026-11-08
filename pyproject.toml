@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "barraCUDA"
+version = "0.1.0"
+description = "GPU-accelerated MERFISH image processing, spot decoding, and SpatialData export"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+keywords = ["MERFISH", "spatial-transcriptomics", "microscopy", "CUDA", "OME-Zarr"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Image Processing",
+]
+# Direct dependencies and file-format backends from the supplied environment.
+# These version floors are a reference baseline, not a reproducible environment lock.
+dependencies = [
+    "aicspylibczi>=4.0.1",
+    "anndata>=0.13.4",
+    "bioio>=3.7.0",
+    "bioio-czi>=4.0.1",
+    "dask[array,dataframe]>=2026.8.0",
+    "geopandas>=1.2.0",
+    "imagecodecs>=2025.11.11",
+    "kneed>=0.9.0",
+    "matplotlib>=3.11.2",
+    "numpy>=2.3.5",
+    "ome-zarr>=0.21.0",
+    "pandas>=3.1.1",
+    "pyarrow>=26.0.1",
+    "scikit-image>=0.26.0",
+    "scipy>=1.15.3",
+    "shapely>=2.1.2",
+    "spatialdata>=0.8.0",
+    "tifffile>=2026.10.15",
+    "zarr>=3.4.2",
+]
+
+[project.optional-dependencies]
+# Install on a supported NVIDIA CUDA 12 host; see README for hardware requirements.
+cuda12 = [
+    "cupy-cuda12x>=14.2.0",
+    "cucim-cu12>=26.10.0",
+]
+kvikio = ["kvikio-cu12>=26.10.0"]
+# u-Segment3D's published dependency constraints conflict with this environment.
+# A compatible segment3D installation is also required; see README.
+cellpose = ["cellpose>=4.2.1.1", "torch>=2.11.0"]
+dev = ["build>=1.2.2", "twine>=6"]
+
+[tool.setuptools]
+packages = ["barracuda"]
+include-package-data = false
